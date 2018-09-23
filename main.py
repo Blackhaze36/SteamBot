@@ -1,4 +1,5 @@
 # Steam Bot. Will run commands on PieBox through messages on discord
+#!/usr/bin/env python3
 import discord
 import subprocess
 
@@ -12,7 +13,10 @@ TOKEN = 'NDkyNDkyMDkwNTc2NDcwMDE3.DoXixQ.Jore9QdvVTRHoVzJv2JW9JbexHY'
 commands = {
     'css_start': ['/home/steam/LinuxGSM/cssserver', 'start'],
     'css_stop': ['/home/steam/LinuxGSM/cssserver', 'stop'],
-    'css_status': ['/home/steam/LinuxGSM/cssserver', 'status'],
+    'css_restart': ['/home/steam/LinuxGSM/cssserver', 'restart'],
+    'ins_start': ['/home/steam/LinuxGSM/insserver', 'start'],
+    'ins_stop': ['/home/steam/LinuxGSM/insserver', 'stop'],
+    'ins_restart': ['/home/steam/LinuxGSM/insserver', 'restart'],
     'win_dir': ['dir'] #For testing subprocess on windows
 }
 
@@ -33,6 +37,7 @@ async def on_ready():
 async def on_message(message):
 
     # Checks if the message was sent by the bot, if so does nothing.
+    # This prevents the bot from responding to itself
     if message.author == client.user:
         return
 
@@ -48,7 +53,7 @@ async def on_message(message):
     # Checks if message.content is a key in command and then runs it with subprocess
     elif message.content in commands:
         await client.send_message(message.channel, "Running command")
-        subprocess.run(commands.get(message.content), shell=True)
+        subprocess.run(commands.get(message.content))
 
     #Catches anything that not a command
     else:
