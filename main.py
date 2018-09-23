@@ -1,5 +1,5 @@
-# Steam Bot. Will run commands on PieBox through messages on discord
 #!/usr/bin/env python3
+# Steam Bot. Will run commands on PieBox through messages on discord
 import discord
 import subprocess
 
